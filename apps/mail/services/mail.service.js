@@ -9,7 +9,7 @@ _createMails()
 export const mailService = {
     query,
     get,
-    remove,
+    remove
 }
 
 function query(filterBy = {}) {
