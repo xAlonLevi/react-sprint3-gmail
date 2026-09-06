@@ -3,27 +3,27 @@ const { Link, useSearchParams } = ReactRouterDOM
 
 // import { MailList } from '../cmps/MailList.jsx'
 // import { MailFilter } from '../cmps/MailFilter.jsx'
-import { mailService } from '../services/mail.service.js'
-// import { showErrorMsg, showSuccessMsg } from '../services/event-bus.service.js'
-// import { utilService } from '../services/util.service.js'
+import { mailService } from '../../../services/mail.service.js'
+import { showErrorMsg, showSuccessMsg } from '../../../services/event-bus.service.js'
+import { utilService } from '../../../services/util.service.js'
 // import { useEffectUpdate } from '../custom-hooks/useEffectUpdate.js'
 
 export function MailIndex() {
-    return <section className="container">Mail app</section>
+    // return <section className="container">Mail app</section>
 
     const [mails, setMails] = useState(null)
 
     const [searchParams, setSearchParams] = useSearchParams()
-    const [filterBy, setFilterBy] = useState(mailService.getFilterFromSearchParams(searchParams))
+    const [filterBy, setFilterBy] = useState(mailService.getDefaultFilter(searchParams))
 
     useEffect(() => {
         loadMails(filterBy)
     }, [])
 
-    useEffectUpdate(() => {
-        loadMails(filterBy)
-        setSearchParams(utilService.trimObj(filterBy))
-    }, [filterBy])
+    // useEffectUpdate(() => {
+    //     loadMails(filterBy)
+    //     setSearchParams(utilService.trimObj(filterBy))
+    // }, [filterBy])
 
     function loadMails() {
         mailService.query(filterBy).then(setMails)

@@ -10,8 +10,7 @@ export const mailService = {
     remove,
     save,
     getEmptyMail,
-    getDefaultFilter,
-
+    getDefaultFilter
 }
 
 function query(filterBy = {}) {
