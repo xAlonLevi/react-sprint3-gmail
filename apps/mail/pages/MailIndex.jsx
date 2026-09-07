@@ -1,24 +1,21 @@
 const { useState, useEffect } = React
 const { Link, useSearchParams } = ReactRouterDOM
 
-// import { MailList } from '../cmps/MailList.jsx'
-// import { MailFilter } from '../cmps/MailFilter.jsx'
+import { MailFilter } from '../cmps/MailFilter.jsx'
+import { MailList } from '../cmps/MailList.jsx'
 import { mailService } from '../../../services/mail.service.js'
 import { showErrorMsg, showSuccessMsg } from '../../../services/event-bus.service.js'
-import { utilService } from '../../../services/util.service.js'
 // import { useEffectUpdate } from '../custom-hooks/useEffectUpdate.js'
 
 export function MailIndex() {
-    // return <section className="container">Mail app</section>
-
     const [mails, setMails] = useState(null)
 
     const [searchParams, setSearchParams] = useSearchParams()
     const [filterBy, setFilterBy] = useState(mailService.getDefaultFilter(searchParams))
 
     useEffect(() => {
-        loadMails(filterBy)
-    }, [])
+        loadMails()
+    }, [filterBy])
 
     // useEffectUpdate(() => {
     //     loadMails(filterBy)
@@ -26,25 +23,42 @@ export function MailIndex() {
     // }, [filterBy])
 
     function loadMails() {
-        mailService.query(filterBy).then(setMails)
+        mailService.query(filterBy)
+            .then(mails => setMails(mails))
+            .catch(err => console.log('err', err)
+            )
     }
 
     function onRemoveMail(mailId) {
-        mailService
-            .remove(mailId)
+        mailService.remove(mailId)
             .then(() => {
+                console.log('mailId:', mailId)
+
                 setMails(prev => prev.filter(mail => mail.id !== mailId))
-                onClearFilter()
                 showSuccessMsg(`mail ${mailId} removed`)
             })
-            .catch(err => showErrorMsg(`Couldn't remove ${mailId}`))
+            .catch(err => {
+                console.log('err', err)
+
+                showErrorMsg('Problem removing ' + mailId)
+            })
     }
 
-    function onClearFilter() {
-        setFilterBy(mailService.getDefaultFilter())
+
+    function onSetFilterBy(filterBy) {
+        setFilterBy(prevFilter => ({ ...prevFilter, ...filterBy }))
     }
-console.log(mails);
 
+    console.log(mails);
 
+    //DOM
+    if (!mails) return <div>Loading...</div>
+
+    return (
+        <section className="mail-index">
+            <MailFilter filterBy={filterBy} onSetFilterBy={onSetFilterBy} />
+            <MailList mails={mails} onRemoveMail={onRemoveMail} />
+        </section>
+    )
 }
 

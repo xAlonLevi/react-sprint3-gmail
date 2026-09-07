@@ -45,8 +45,8 @@ function getEmptyMail(
     to = 'user@appsus.com',
     subject = 'Cool-project',
     body = 'muscular',
-    createdAt = '', //when was written
-    sentAt = '',
+    createdAt = Date.now(), //when was written
+    sentAt = null,
     isRead = false,
     removedAt = null,
 ) {
@@ -77,8 +77,8 @@ function _createMails() {
             'user@appsus.com',
             'Cool-project',
             'muscular',
-            '', //when was written
-            '',
+            Date.now(), //when was written
+            null,
             false,
             null,
         ))
@@ -88,8 +88,8 @@ function _createMails() {
             'user@appsus.com',
             'Cool-project',
             'muscular',
-            '', //when was written
-            '',
+            Date.now(), //when was written
+            null,
             false,
             null,
         ))
@@ -99,8 +99,8 @@ function _createMails() {
             'user@appsus.com',
             'Cool-project',
             'muscular',
-            '', //when was written
-            '',
+            Date.now(), //when was written
+            null,
             false,
             null,
         ))
@@ -110,8 +110,8 @@ function _createMails() {
             'user@appsus.com',
             'Cool-project',
             'muscular',
-            '', //when was written
-            '',
+            Date.now(), //when was written
+            null,
             false,
             null,
         ))
@@ -125,10 +125,10 @@ function _createMail(
     to = '',
     subject = '',
     body = '',
-    createdAt = '',
-    sentAt = '',
-    isRead = '',
-    removedAt = ''
+    createdAt = Date.now(),
+    sentAt = null,
+    isRead = false,
+    removedAt = null
 ) {
     const mail = getEmptyMail(
         from,
