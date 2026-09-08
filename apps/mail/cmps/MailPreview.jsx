@@ -1,15 +1,19 @@
 const { Link } = ReactRouterDOM
 
 export function MailPreview({ mail }) {
-    console.log(mail.createdAt, typeof mail.createdAt)
+    // console.log(mail.createdAt, typeof mail.createdAt)
 
     return (
-        <article className="mail-preview">
-            <Link to={`/mail/${mail.id}`}>
+        <article className={`mail-preview ${mail.isRead ? 'read' : 'unread'}`}>
+            <Link
+                className="mail-preview-link"
+                to={`/mail/${mail.id}`}
+            >
                 <h2>{mail.from}</h2>
                 <p>{mail.subject}</p>
                 <p>{mail.body}</p>
                 <p>{new Date(mail.createdAt).toLocaleString()}</p>
+               
             </Link>
         </article>
     )

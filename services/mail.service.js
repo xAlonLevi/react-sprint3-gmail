@@ -89,7 +89,7 @@ function _createMails() {
             'dodo@momo.com',
             'user@appsus.com',
             'Cool-project',
-            'muscular',
+            '',
             Date.now(), //when was written
             null,
             false,

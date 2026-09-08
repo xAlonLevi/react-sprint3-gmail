@@ -1,0 +1,10 @@
+.mail-preview {}
+
+.mail-preview-link {
+    display: grid;
+    grid-template-columns: 12rem 10rem 1fr auto;
+}
+
+.mail-preview.read {}
+
+.mail-preview.unread {}
