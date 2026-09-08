@@ -59,11 +59,12 @@ function getRandomColor() {
     return color
 }
 
+//HELP INTEGRATING DATES
+
 function getDayName(date, locale) {
     date = new Date(date)
     return date.toLocaleDateString(locale, { weekday: 'long' })
 }
-
 
 function getMonthName(date) {
     const monthNames = ["January", "February", "March", "April", "May", "June",

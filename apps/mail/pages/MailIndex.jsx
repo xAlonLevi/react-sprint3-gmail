@@ -10,8 +10,8 @@ import { showErrorMsg, showSuccessMsg } from '../../../services/event-bus.servic
 export function MailIndex() {
     const [mails, setMails] = useState(null)
 
-    const [searchParams, setSearchParams] = useSearchParams()
-    const [filterBy, setFilterBy] = useState(mailService.getDefaultFilter(searchParams))
+    // const [searchParams, setSearchParams] = useSearchParams()
+    const [filterBy, setFilterBy] = useState(mailService.getDefaultFilter())
 
     useEffect(() => {
         loadMails()
@@ -21,7 +21,7 @@ export function MailIndex() {
     //     loadMails(filterBy)
     //     setSearchParams(utilService.trimObj(filterBy))
     // }, [filterBy])
-
+    //react 4 car
     function loadMails() {
         mailService.query(filterBy)
             .then(mails => setMails(mails))
@@ -56,8 +56,14 @@ export function MailIndex() {
 
     return (
         <section className="mail-index">
-            <MailFilter filterBy={filterBy} onSetFilterBy={onSetFilterBy} />
-            <MailList mails={mails} onRemoveMail={onRemoveMail} />
+            <MailFilter
+                filterBy={filterBy}
+                onSetFilterBy={onSetFilterBy}
+            />
+            <MailList
+                mails={mails}
+                onRemoveMail={onRemoveMail}
+            />
         </section>
     )
 }

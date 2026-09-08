@@ -16,9 +16,14 @@ export const mailService = {
 function query(filterBy = {}) {
     return storageService.query(MAIL_KEY)
         .then(mails => {
-            if (filterBy.txt) {
-                const regExp = new RegExp(filterBy.txt, 'i')
+            if (filterBy.from) {
+                const regExp = new RegExp(filterBy.from, 'i')
                 mails = mails.filter(mail => regExp.test(mail.from))
+            }
+
+            if (filterBy.subject) {
+                const regExp = new RegExp(filterBy.subject, 'i')
+                mails = mails.filter(mail => regExp.test(mail.subject))
             }
             return mails
         })
@@ -63,7 +68,10 @@ function getEmptyMail(
 }
 
 function getDefaultFilter() {
-    return { txt: '' }
+    return {
+        from: '',
+        subject: ''
+    }
 }
 
 function _createMails() {
